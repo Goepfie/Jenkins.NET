@@ -224,6 +224,44 @@ namespace JenkinsNET
             }
         }
     #endif
+        /// <summary>
+        /// Stops an active Jenkins Job Build.
+        /// </summary>
+        /// <param name="jobName">The name of the Job.</param>
+        /// <param name="buildNumber">The number of the build.</param>
+        /// <param name="promotionLevel">The level the build should be set to.</param>
+        /// <exception cref="JenkinsJobGetBuildException"></exception>
+        public void Promote(string jobName, string buildNumber, int promotionLevel)
+        {
+            try {
+                var cmd = new BuildPromoteCommand(client, jobName, buildNumber, promotionLevel);
+                cmd.Run();
+            }
+            catch (Exception error) {
+                //throw new JenkinsNetException($"Failed to promote build #{buildNumber} of Jenkins Job '{jobName}'!", error);
+            }
+        }
+
+#if NET_ASYNC
+        /// <summary>
+        /// Stops an active Jenkins Job Build asynchronously.
+        /// </summary>
+        /// <param name="jobName">The name of the Job.</param>
+        /// <param name="buildNumber">The number of the build.</param>
+        /// <param name="token">An optional token for aborting the request.</param>
+        /// <exception cref="JenkinsJobGetBuildException"></exception>
+        /// <param name="promotionLevel">The level the build should be set to.</param>
+        public async Task StopAsync(string jobName, string buildNumber, int promotionLevel, CancellationToken token = default)
+        {
+            try {
+                var cmd = new BuildPromoteCommand(client, jobName, buildNumber, promotionLevel);
+                await cmd.RunAsync(token);
+            }
+            catch (Exception error) {
+                //throw new JenkinsNetException($"Failed to promote build #{buildNumber} of Jenkins Job '{jobName}'!", error);
+            }
+        }
+#endif
         
         /// <summary>
         /// Stops an active Jenkins Job Build.
