@@ -220,14 +220,14 @@ namespace JenkinsNET.Utilities
             SetStatus(JenkinsJobStatus.Building);
             var buildStartTime = DateTime.Now;
 
-            textReader = new ProgressiveTextReader(Client, jobName, BuildNumber.ToString());
+            textReader = new ProgressiveTextReader(Client, jobName, BuildNumber.Value);
             textReader.TextChanged += TextReader_TextChanged;
 
             JenkinsBuildBase buildItem = null;
             while (string.IsNullOrEmpty(buildItem?.Result)) {
                 if (!BuildNumber.HasValue) throw new JenkinsNetException("Build number not found!");
 
-                buildItem = Client.Builds.Get<JenkinsBuildBase>(jobName, BuildNumber.Value.ToString());
+                buildItem = Client.Builds.Get<JenkinsBuildBase>(jobName, BuildNumber.Value);
                 if (!string.IsNullOrEmpty(buildItem?.Result)) break;
 
                 if (BuildTimeout > 0 && DateTime.Now.Subtract(buildStartTime).TotalSeconds > BuildTimeout)
@@ -274,14 +274,14 @@ namespace JenkinsNET.Utilities
             SetStatus(JenkinsJobStatus.Building);
             var buildStartTime = DateTime.Now;
 
-            textReader = new ProgressiveTextReader(Client, jobName, BuildNumber.ToString());
+            textReader = new ProgressiveTextReader(Client, jobName, BuildNumber.Value);
             textReader.TextChanged += TextReader_TextChanged;
 
             JenkinsBuildBase buildItem = null;
             while (string.IsNullOrEmpty(buildItem?.Result)) {
                 if (!BuildNumber.HasValue) throw new JenkinsNetException("Build number not found!");
 
-                buildItem = await Client.Builds.GetAsync<JenkinsBuildBase>(jobName, BuildNumber.Value.ToString());
+                buildItem = await Client.Builds.GetAsync<JenkinsBuildBase>(jobName, BuildNumber.Value);
                 if (!string.IsNullOrEmpty(buildItem?.Result)) break;
 
                 if (BuildTimeout > 0 && DateTime.Now.Subtract(buildStartTime).TotalSeconds > BuildTimeout)

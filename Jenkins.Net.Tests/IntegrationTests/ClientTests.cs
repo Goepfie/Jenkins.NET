@@ -118,7 +118,7 @@ namespace JenkinsNET.Tests.IntegrationTests
             Assert.Equal("SUCCESS", build.Result);
             Assert.True(jobRunner.BuildNumber.HasValue);
 
-            var text = jobRunner.Client.Builds.GetConsoleText(jobName, jobRunner.BuildNumber.Value.ToString());
+            var text = jobRunner.Client.Builds.GetConsoleText(jobName, jobRunner.BuildNumber.Value);
             output.WriteLine(text);
 
             Assert.Contains("[Hello World!]", text);
@@ -137,7 +137,7 @@ namespace JenkinsNET.Tests.IntegrationTests
             Assert.Equal("SUCCESS", build.Result);
             Assert.True(jobRunner.BuildNumber.HasValue);
 
-            var text = jobRunner.Client.Builds.GetConsoleHtml(jobName, jobRunner.BuildNumber.Value.ToString());
+            var text = jobRunner.Client.Builds.GetConsoleHtml(jobName, jobRunner.BuildNumber.Value);
             output.WriteLine(text);
 
             Assert.Contains("<html>", text);

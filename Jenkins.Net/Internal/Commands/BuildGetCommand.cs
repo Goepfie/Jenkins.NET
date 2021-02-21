@@ -8,13 +8,10 @@ namespace JenkinsNET.Internal.Commands
         public T Result {get; private set;}
 
 
-        public BuildGetCommand(JenkinsClient client, string jobName, string buildNumber) : base(client)
+        public BuildGetCommand(JenkinsClient client, string jobName, int buildNumber) : base(client)
         {
             if (string.IsNullOrEmpty(jobName))
                 throw new ArgumentException("'jobName' cannot be empty!");
-
-            if (string.IsNullOrEmpty(buildNumber))
-                throw new ArgumentException("'buildNumber' cannot be empty!");
 
             Path = $"job/{jobName}/{buildNumber}/api/xml";
 

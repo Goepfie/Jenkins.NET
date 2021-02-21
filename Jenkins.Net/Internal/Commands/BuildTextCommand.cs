@@ -9,13 +9,10 @@ namespace JenkinsNET.Internal.Commands
         public string Result {get; private set;}
 
 
-        public BuildTextCommand(JenkinsClient client, string jobName, string buildNumber) : base(client)
+        public BuildTextCommand(JenkinsClient client, string jobName, int buildNumber) : base(client)
         {
             if (string.IsNullOrEmpty(jobName))
                 throw new ArgumentException("'jobName' cannot be empty!");
-
-            if (string.IsNullOrEmpty(buildNumber))
-                throw new ArgumentException("'buildNumber' cannot be empty!");
 
             Path = $"job/{jobName}/{buildNumber}/consoleText";
 

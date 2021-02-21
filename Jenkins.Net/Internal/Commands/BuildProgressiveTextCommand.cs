@@ -10,13 +10,10 @@ namespace JenkinsNET.Internal.Commands
         public JenkinsProgressiveTextResponse Result {get; private set;}
 
 
-        public BuildProgressiveTextCommand(JenkinsClient client, string jobName, string buildNumber, int start) : base(client)
+        public BuildProgressiveTextCommand(JenkinsClient client, string jobName, int buildNumber, int start) : base(client)
         {
             if (string.IsNullOrEmpty(jobName))
                 throw new ArgumentException("'jobName' cannot be empty!");
-
-            if (string.IsNullOrEmpty(buildNumber))
-                throw new ArgumentException("'buildNumber' cannot be empty!");
 
             Path = $"job/{jobName}/{buildNumber}/logText/progressiveText";
 

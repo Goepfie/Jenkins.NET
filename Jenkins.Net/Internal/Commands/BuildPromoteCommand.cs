@@ -6,13 +6,10 @@ namespace JenkinsNET.Internal.Commands
     internal class BuildPromoteCommand : JenkinsHttpCommand
     {
         
-        public BuildPromoteCommand(JenkinsClient client, string jobName, string buildNumber, int promotionLevel) : base(client)
+        public BuildPromoteCommand(JenkinsClient client, string jobName, int buildNumber, int promotionLevel) : base(client)
         {
             if (string.IsNullOrEmpty(jobName))
                 throw new ArgumentException("'jobName' cannot be empty!");
-
-            if (string.IsNullOrEmpty(buildNumber))
-                throw new ArgumentException("'buildNumber' cannot be empty!");
 
             Path = $"job/{jobName}/{buildNumber}/promote/?level={promotionLevel}";
 

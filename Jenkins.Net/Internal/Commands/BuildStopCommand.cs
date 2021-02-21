@@ -5,13 +5,10 @@ namespace JenkinsNET.Internal.Commands
 {
     internal class BuildStopCommand : JenkinsHttpCommand
     {
-        public BuildStopCommand(JenkinsClient client, string jobName, string buildNumber) : base(client)
+        public BuildStopCommand(JenkinsClient client, string jobName, int buildNumber) : base(client)
         {
             if (string.IsNullOrEmpty(jobName))
                 throw new ArgumentException("'jobName' cannot be empty!");
-
-            if (string.IsNullOrEmpty(buildNumber))
-                throw new ArgumentException("'buildNumber' cannot be empty!");
 
             Path = $"job/{jobName}/{buildNumber}/stop";
 
