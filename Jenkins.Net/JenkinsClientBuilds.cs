@@ -242,7 +242,7 @@ namespace JenkinsNET
             }
         }
 
-#if NET_ASYNC
+    #if NET_ASYNC
         /// <summary>
         /// Stops an active Jenkins Job Build asynchronously.
         /// </summary>
@@ -261,7 +261,46 @@ namespace JenkinsNET
                 //throw new JenkinsNetException($"Failed to promote build #{buildNumber} of Jenkins Job '{jobName}'!", error);
             }
         }
-#endif
+    #endif
+        
+        /// <summary>
+        /// Toggles the keep forever option for a Jenkins Job Build.
+        /// </summary>
+        /// <param name="jobName">The name of the Job.</param>
+        /// <param name="buildNumber">The number of the build.</param>
+        /// <exception cref="JenkinsJobGetBuildException"></exception>
+        public void ToggleKeep(string jobName, int buildNumber)
+        {
+            try {
+                var cmd = new BuildToggleKeepCommand(client, jobName, buildNumber);
+                cmd.Run();
+            }
+            catch (Exception error) {
+                // Jenkins 2.280 returns HTTP 403, but build is stopped
+                //throw new JenkinsNetException($"Failed to stop build #{buildNumber} of Jenkins Job '{jobName}'!", error);
+            }
+        }
+
+    #if NET_ASYNC
+        /// <summary>
+        /// Toggles the keep forever option for a Jenkins Job Build asynchronously.
+        /// </summary>
+        /// <param name="jobName">The name of the Job.</param>
+        /// <param name="buildNumber">The number of the build.</param>
+        /// <param name="token">An optional token for aborting the request.</param>
+        /// <exception cref="JenkinsJobGetBuildException"></exception>
+        public async Task ToggleKeepAsync(string jobName, int buildNumber, CancellationToken token = default)
+        {
+            try {
+                var cmd = new BuildToggleKeepCommand(client, jobName, buildNumber);
+                await cmd.RunAsync(token);
+            }
+            catch (Exception error) {
+                // Jenkins 2.280 returns HTTP 403, but build is stopped
+                //throw new JenkinsNetException($"Failed to stop build #{buildNumber} of Jenkins Job '{jobName}'!", error);
+            }
+        }
+    #endif
         
         /// <summary>
         /// Stops an active Jenkins Job Build.
