@@ -251,7 +251,7 @@ namespace JenkinsNET
         /// <param name="token">An optional token for aborting the request.</param>
         /// <exception cref="JenkinsJobGetBuildException"></exception>
         /// <param name="promotionLevel">The level the build should be set to.</param>
-        public async Task StopAsync(string jobName, int buildNumber, int promotionLevel, CancellationToken token = default)
+        public async Task PromoteAsync(string jobName, int buildNumber, int promotionLevel, CancellationToken token = default)
         {
             try {
                 var cmd = new BuildPromoteCommand(client, jobName, buildNumber, promotionLevel);
