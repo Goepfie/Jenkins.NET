@@ -34,7 +34,7 @@ namespace JenkinsNET
         /// <param name="filename">The relative path and file name of the artifact.</param>
         /// <returns>A memory-stream containing the contents of the artifact.</returns>
         /// <exception cref="JenkinsArtifactGetException"></exception>
-        public MemoryStream Get(string jobName, string buildNumber, string filename)
+        public MemoryStream Get(string jobName, int buildNumber, string filename)
         {
             try {
                 var cmd = new ArtifactGetCommand(client, jobName, buildNumber, filename);
@@ -56,7 +56,7 @@ namespace JenkinsNET
         /// <param name="token">An optional token for aborting the request.</param>
         /// <returns>A memory-stream containing the contents of the artifact.</returns>
         /// <exception cref="JenkinsArtifactGetException"></exception>
-        public async Task<MemoryStream> GetAsync(string jobName, string buildNumber, string filename, CancellationToken token = default)
+        public async Task<MemoryStream> GetAsync(string jobName, int buildNumber, string filename, CancellationToken token = default)
         {
             try {
                 var cmd = new ArtifactGetCommand(client, jobName, buildNumber, filename);

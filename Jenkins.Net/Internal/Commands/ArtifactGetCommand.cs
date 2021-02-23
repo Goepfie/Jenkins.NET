@@ -8,13 +8,10 @@ namespace JenkinsNET.Internal.Commands
         public MemoryStream Result {get; private set;}
 
 
-        public ArtifactGetCommand(JenkinsClient client, string jobName, string buildNumber, string filename) : base(client)
+        public ArtifactGetCommand(JenkinsClient client, string jobName, int buildNumber, string filename) : base(client)
         {
             if (string.IsNullOrEmpty(jobName))
                 throw new ArgumentException("'jobName' cannot be empty!");
-
-            if (string.IsNullOrEmpty(buildNumber))
-                throw new ArgumentException("'buildNumber' cannot be empty!");
 
             if (string.IsNullOrEmpty(filename))
                 throw new ArgumentException("'filename' cannot be empty!");
